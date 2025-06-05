@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de QRCodes</title>
+</head>
+<body>
+<h1>QRCodes Existentes</h1>
+
+<ul>
+    <li th:each="qr : ${qrcodes}">
+        <span th:text="${qr}"></span> <br>
+        <img th:src="@{'/CodeImages/' + ${qr}}" alt="QR Code" width="150"/>
+        <button class="btn btn-primary">Delete</button>
+    </li>
+</ul>
+
+<a href="/Admin">Voltar ao menu</a>
+</body>
+</html>
