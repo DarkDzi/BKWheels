@@ -84,6 +84,21 @@ public class PageController {
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    @GetMapping("/form")
+    public String mostrarFormulario() {
+        return "form";
+    }
+
+    @PostMapping("/form")
+    public String receberFeedback(@RequestParam int nota,
+                                  @RequestParam String comentario,
+                                  @RequestParam(required = false) boolean reparo,
+                                  Model model) {
+
+
+        model.addAttribute("mensagem", "Feedback enviado com sucesso!");
+        return "redirect:/Admin";
+    }
 
 }
 

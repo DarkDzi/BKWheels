@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Feedback da Bicicleta</title>
+</head>
+<body>
+<h1>Enviar Feedback da Bicicleta</h1>
+
+<form th:action="@{/bike/feedback}" method="post">
+
+    <label for="nota">Nota (1 a 5):</label><br>
+    <input type="number" id="nota" name="nota" min="1" max="5" required><br><br>
+
+    <label for="comentario">Comentário:</label><br>
+    <textarea id="comentario" name="comentario" rows="4" cols="50" placeholder="Descreva sua experiência..."></textarea><br><br>
+
+    <label for="reparo">Precisa de reparo?</label>
+    <input type="checkbox" id="reparo" name="reparo"><br><br>
+
+    <button type="submit">Enviar Feedback</button>
+</form>
+
+<a href="/Admin">Voltar</a>
+</body>
+</html>
