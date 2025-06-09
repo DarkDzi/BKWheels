@@ -59,15 +59,18 @@ public class QRgenerator {
     }
 
     public void DeletarQrCodePorId(int id) {
-        Path path = Paths.get("CodeImages/QrCode_" + id + ".png");
+        //Path path = Paths.get("CodeImages/QrCode_" + id + ".png");
+        DeletarQr Deletar = new DeletarQr();
         try {
-            if (Files.exists(path)) {
-                Files.delete(path);
-                System.out.println("Arquivo deletado com sucesso!");
-            } else {
-                System.out.println("Arquivo não encontrado.");
-            }
-        } catch (IOException e) {
+
+            //if (Files.exists(path)) {
+                //Files.delete(path);
+                //System.out.println("Arquivo deletado com sucesso!");
+            //} else {
+              //  System.out.println("Arquivo não encontrado.");
+            //}
+            Deletar.Delete(id);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

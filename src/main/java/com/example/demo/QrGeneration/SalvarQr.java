@@ -14,21 +14,25 @@ public class SalvarQr {
     private String Senha = "123";
 
     public void Save(BufferedImage Qr, String nomeQr, String QRUrl) {
-        try{
+
+        try(Connection conn = DriverManager.getConnection(Url, Usuario, Senha)){
+
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(Qr, "png", baos);
             byte[] QrBytes = baos.toByteArray();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
 
-        try(Connection conn = DriverManager.getConnection(Url, Usuario, Senha)){
+
+
             String sql = "INSERT INTO qrcodes (nome_arquivo, QR, QRUrl) VALUES(?, ?)";
             PreparedStatement sts = conn.prepareStatement(sql);
 
             sts.setString(1, nomeQr);
             sts.setString(2, QRUrl);
+            sts.setBytes(2, QrBytes);
+            sts.executeUpdate();
 
+            sts.close();
+            conn.close();
 
 
 
