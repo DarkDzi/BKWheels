@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class ListarQr {
 
-    private String Url = "jdbc:h2:mem:banco";
+    private String Url = "jdbc:h2:file:./data/meubanco";
     private String Usuario = "admin";
     private String Senha = "123";
 

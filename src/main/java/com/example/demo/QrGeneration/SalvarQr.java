@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 public class SalvarQr {
-    private String Url = "jdbc:h2:mem:banco";
+    private String Url = "jdbc:h2:file:./data/meubanco";
     private String Usuario = "admin";
     private String Senha = "123";
 
@@ -23,11 +23,11 @@ public class SalvarQr {
 
 
 
-            String sql = "INSERT INTO qrcodes (nome_arquivo, QR, QRUrl) VALUES(?, ?)";
+            String sql = "INSERT INTO qrcodes (nome_arquivo, QR, QRUrl) VALUES(?, ?, ?)";
             PreparedStatement sts = conn.prepareStatement(sql);
 
             sts.setString(1, nomeQr);
-            sts.setString(2, QRUrl);
+            sts.setString(3, QRUrl);
             sts.setBytes(2, QrBytes);
             sts.executeUpdate();
 
