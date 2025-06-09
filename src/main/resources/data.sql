@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS qrcodes (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome_arquivo VARCHAR(255) NOT NULL,
-    image BLOB,
+    QR BLOB,
     QRUrl VARCHAR(255) NOT NULL
     );
 
