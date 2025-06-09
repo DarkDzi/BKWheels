@@ -21,6 +21,7 @@ public class QRgenerator {
     public void GenerateQR(int bikeid) {
         String caminho = "CodeImages/QrCode_" + bikeid + ".png";
         String texto = "localhost:8080/form" + bikeid;
+        SalvarQr Salvar = new SalvarQr();
         try {
             BitMatrix matrix = new MultiFormatWriter().encode(
                     texto,
@@ -33,7 +34,7 @@ public class QRgenerator {
             if (Files.exists(path)) {
                 System.out.println("Código já existente, cheque no diretório do projeto em CodeImages");
             } else {
-                MatrixToImageWriter.writeToPath(matrix, "PNG", path);
+                Salvar.Save(MatrixToImageWriter.toBufferedImage(matrix), caminho, texto);
                 System.out.println("Código QR gerado com sucesso, confira na pasta CodeImages");
             }
 
