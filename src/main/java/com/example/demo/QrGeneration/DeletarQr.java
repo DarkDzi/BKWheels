@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 public class DeletarQr {
-    private String Url = "jdbc:h2:file:./data/meubanco";
+    private String Url = "jdbc:h2:file:./data";
     private String Usuario = "admin";
     private String Senha = "123";
 

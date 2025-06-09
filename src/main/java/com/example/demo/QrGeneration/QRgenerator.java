@@ -1,5 +1,6 @@
 package com.example.demo.QrGeneration;
 
+import com.example.demo.Modelos.QRCodeData;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -34,7 +35,8 @@ public class QRgenerator {
             if (Files.exists(path)) {
                 System.out.println("Código já existente, cheque no diretório do projeto em CodeImages");
             } else {
-                Salvar.Save(MatrixToImageWriter.toBufferedImage(matrix), caminho, texto);
+                QRCodeData Qr = new QRCodeData(bikeid, caminho, texto, MatrixToImageWriter.toBufferedImage(matrix));
+                Salvar.Save(Qr);
                 System.out.println("Código QR gerado com sucesso, confira na pasta CodeImages");
             }
 
@@ -43,20 +45,20 @@ public class QRgenerator {
         }
     }
 
-    public List<String> listarQRCodes() {
-        List<String> codigos = new ArrayList<>();
-        Path dir = Paths.get("CodeImages");
+    //public List<String> listarQRCodes() {
+        //List<String> codigos = new ArrayList<>();
+        //Path dir = Paths.get("CodeImages");
 
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.png")) {
-            for (Path file : stream) {
-                codigos.add(file.getFileName().toString());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.png")) {
+            //for (Path file : stream) {
+                //codigos.add(file.getFileName().toString());
+            //}
+        //} catch (IOException e) {
+           // e.printStackTrace();
+       // }
 
-        return codigos;
-    }
+       // return ;
+    //}
 
     public void DeletarQrCodePorId(int id) {
         //Path path = Paths.get("CodeImages/QrCode_" + id + ".png");
