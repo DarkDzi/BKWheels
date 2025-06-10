@@ -78,7 +78,7 @@ public class PageController {
     @ResponseBody
     public ResponseEntity<byte[]> getQRCodeImage(@PathVariable int id) {
         try (Connection conn = DriverManager.getConnection("jdbc:h2:file:./data", "admin", "123")) {
-            String sql = "SELECT QR FROM qrcodes WHERE id =" + id;
+            String sql = "SELECT QR FROM qrcodes WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -96,39 +96,32 @@ public class PageController {
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @GetMapping("download/qr/image/{id}")
+    @GetMapping("/download/qr/image/{id}")
     @ResponseBody
-    public ResponseEntity<Resource> getQRCodeImage2(@PathVariable int id) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    public ResponseEntity<ByteArrayResource> downloadQRCode(@PathVariable int id) {
         try (Connection conn = DriverManager.getConnection("jdbc:h2:file:./data", "admin", "123")) {
-            String sql = "SELECT QR FROM qrcodes WHERE id =" + id;
+            String sql = "SELECT QR FROM qrcodes WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
+
             if (rs.next()) {
                 byte[] imageBytes = rs.getBytes("QR");
+                ByteArrayResource resource = new ByteArrayResource(imageBytes);
 
+                return ResponseEntity.ok()
+                        .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"qrcode_" + id + ".png\"")
+                        .body(resource);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
+        return ResponseEntity.notFound().build();
+    }
 
 
-             ByteArrayResource resource = new ByteArrayResource(baos.toByteArray());
-            if (!resource.exists()) {
-                return ResponseEntity.notFound().build();
-            }
-
-            return ResponseEntity.ok()
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .header(HttpHeaders.CONTENT_DISPOSITION,
-                            "attachment; id=\"" + id + "\"")
-                    .body(resource);
-
-
-            return ResponseEntity.internalServerError().build();
-        }
 
 
 

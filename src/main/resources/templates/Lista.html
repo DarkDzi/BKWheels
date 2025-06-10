@@ -18,12 +18,9 @@
             <input type="hidden" name="id" th:value="${qr.id}" />
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>
-
-
-        <form th:action="@{/Admin}" method="post" style="display:inline;">
-            <input type="hidden" name="id" th:value="${qr.id}" />
-            <button type="submit" class="btn btn-danger">Baixar</button>
-        </form>
+            <a th:href="@{/download/qr/image/{id}(id=${qr.id})}" class="btn btn-primary" download>
+                Baixar
+            </a>
     </li>
 
 </ul>
