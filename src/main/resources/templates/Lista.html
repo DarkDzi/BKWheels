@@ -10,9 +10,19 @@
     <li th:each="qr : ${qrcodes}">
         <span th:text="${qr.nome_arquivo}"></span><br>
         <img th:src="@{/qr/image/{id}(id=${qr.id})}" width="150" alt="QR Code"><br>
+
+
+
+
         <form th:action="@{/Admin/delete}" method="post" style="display:inline;">
             <input type="hidden" name="id" th:value="${qr.id}" />
             <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+
+
+        <form th:action="@{/Admin}" method="post" style="display:inline;">
+            <input type="hidden" name="id" th:value="${qr.id}" />
+            <button type="submit" class="btn btn-danger">Baixar</button>
         </form>
     </li>
 

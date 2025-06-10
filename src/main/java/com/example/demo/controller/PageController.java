@@ -1,9 +1,15 @@
 package com.example.demo.controller;
 
+import com.example.demo.FeedBack.SalvarFormData;
 import com.example.demo.Modelos.QRCodeData;
 import com.example.demo.QrGeneration.ListarQr;
 import com.example.demo.QrGeneration.QRgenerator;
+import jakarta.annotation.Resource;
+import jakarta.annotation.Resources;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,10 +18,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -66,7 +78,7 @@ public class PageController {
     @ResponseBody
     public ResponseEntity<byte[]> getQRCodeImage(@PathVariable int id) {
         try (Connection conn = DriverManager.getConnection("jdbc:h2:file:./data", "admin", "123")) {
-            String sql = "SELECT QR FROM qrcodes WHERE id = ?";
+            String sql = "SELECT QR FROM qrcodes WHERE id =" + id;
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -84,6 +96,43 @@ public class PageController {
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    @GetMapping("download/qr/image/{id}")
+    @ResponseBody
+    public ResponseEntity<Resource> getQRCodeImage2(@PathVariable int id) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (Connection conn = DriverManager.getConnection("jdbc:h2:file:./data", "admin", "123")) {
+            String sql = "SELECT QR FROM qrcodes WHERE id =" + id;
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                byte[] imageBytes = rs.getBytes("QR");
+
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+             ByteArrayResource resource = new ByteArrayResource(baos.toByteArray());
+            if (!resource.exists()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; id=\"" + id + "\"")
+                    .body(resource);
+
+
+            return ResponseEntity.internalServerError().build();
+        }
+
+
+
+
     @GetMapping("/form")
     public String mostrarFormulario() {
         return "form";
@@ -95,7 +144,8 @@ public class PageController {
                                   @RequestParam(required = false) boolean reparo,
                                   Model model) {
 
-
+        SalvarFormData SalvaForm = new SalvarFormData();
+        SalvaForm.Save(nota, comentario, reparo);
         model.addAttribute("mensagem", "Feedback enviado com sucesso!");
         return "redirect:/Admin";
     }
