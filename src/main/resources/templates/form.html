@@ -14,8 +14,18 @@
 
 
 <form th:action="@{/form}" method="post" th:if="${mensagem == null}" class="feedback-form">
-    <label for="nota">Nota (1 a 5):</label><br>
-    <input type="number" id="nota" name="nota" min="1" max="5" required><br><br>
+    <label for="nome">Nome:</label><br>
+    <input type="text" id="nome" name="nome" placeholder="Seu nome" required><br><br>
+    <div class="star-rating-container">
+        <label>Nota:</label><br>
+        <div class="star-rating">
+            <input type="radio" id="star5" name="nota" value="5" required><label for="star5">★</label>
+            <input type="radio" id="star4" name="nota" value="4"><label for="star4">★</label>
+            <input type="radio" id="star3" name="nota" value="3"><label for="star3">★</label>
+            <input type="radio" id="star2" name="nota" value="2"><label for="star2">★</label>
+            <input type="radio" id="star1" name="nota" value="1"><label for="star1">★</label>
+        </div>
+    </div>
 
     <input type="hidden" name="bikeid" th:value="${bikeid}" />
 

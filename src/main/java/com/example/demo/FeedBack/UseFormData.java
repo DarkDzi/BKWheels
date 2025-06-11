@@ -32,7 +32,8 @@ public class UseFormData {
                 String comentario = rs.getString("comentario");
                 boolean reparo = rs.getBoolean("reparo");
                 Timestamp data = rs.getTimestamp("data");
-                FormData formData = new FormData(id, bikeid, nota, comentario, reparo, data);
+                String nome = rs.getString("nome");
+                FormData formData = new FormData(bikeid, nota, id, comentario, reparo, data, nome);
                 feedsData.add(formData);
             }
 

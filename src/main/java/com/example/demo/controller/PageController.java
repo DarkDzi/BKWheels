@@ -172,10 +172,11 @@ public class PageController {
                                   @RequestParam String comentario,
                                   @RequestParam(required = false) boolean reparo,
                                   @RequestParam int bikeid,
+                                  @RequestParam String nome,
                                   Model model) {
 
         SalvarFormData SalvaForm = new SalvarFormData();
-        SalvaForm.Save(nota, comentario, reparo, bikeid);
+        SalvaForm.Save(nota, comentario, reparo, bikeid, nome);
         model.addAttribute("mensagem", "Obrigado Pelo Feedback!");
         return "form";
     }

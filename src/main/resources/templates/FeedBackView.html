@@ -16,18 +16,25 @@
         <th>Comentário</th>
         <th>Reparo Necessário</th>
         <th>Data</th>
+        <th>Nome</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="feed : ${feedsData}">
         <td th:text="${feed.id}">1</td>
         <td th:text="${feed.bikeid}">123</td>
-        <td th:text="${feed.nota}">5</td>
+        <td>
+        <span th:each="i : ${#numbers.sequence(1, 5)}">
+            <span th:text="|${i <= feed.nota ? '★' : '☆'}|"></span>
+        </span>
+        </td>
         <td th:text="${feed.comentario}">Ótimo</td>
         <td th:text="${feed.reparo} ? 'Sim' : 'Não'">Não</td>
         <td th:text="${feed.data}">data</td>
+        <td th:text="${feed.nome}">nome</td>
     </tr>
     </tbody>
+
 </table>
 
 <div th:if="${#lists.isEmpty(feedsData)}">

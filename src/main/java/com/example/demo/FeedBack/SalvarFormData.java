@@ -15,13 +15,13 @@ public class SalvarFormData {
     private String Senha = "123";
 
 
-    public void Save(int nota, String comentario, Boolean reparo, int bikeid) {
+    public void Save(int nota, String comentario, Boolean reparo, int bikeid, String nome) {
         CriarTabela criarTabela = new CriarTabela();
         criarTabela.criarTabelaForm();
         Date data = new Date();
         java.sql.Timestamp datasql = new java.sql.Timestamp(data.getTime());
         try(Connection conn = DriverManager.getConnection(Url, Usuario, Senha)){
-            String sql = "INSERT INTO formdata (nota,bikeid, comentario, reparo, data) VALUES(?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO formdata (nota,bikeid, comentario, reparo, data, nome) VALUES(?, ?, ?, ?, ?, ?)";
             PreparedStatement sts = conn.prepareStatement(sql);
 
 
@@ -30,6 +30,7 @@ public class SalvarFormData {
             sts.setString(3, comentario);
             sts.setBoolean(4, reparo);
             sts.setTimestamp(5, datasql);
+            sts.setString(6, nome);
             sts.executeUpdate();
 
             sts.close();

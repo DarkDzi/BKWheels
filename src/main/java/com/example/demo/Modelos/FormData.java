@@ -9,14 +9,24 @@ public class FormData {
     private String comentario;
     private boolean reparo;
     private Timestamp data;
+    private String nome;
 
-    public FormData(int bikeid, int nota, int id, String comentario, boolean reparo, Timestamp data) {
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public FormData(int bikeid, int nota, int id, String comentario, boolean reparo, Timestamp data, String nome) {
         this.bikeid = bikeid;
         this.nota = nota;
         this.id = id;
         this.comentario = comentario;
         this.reparo = reparo;
         this.data = data;
+        this.nome = nome;
     }
 
     public Timestamp getData() {

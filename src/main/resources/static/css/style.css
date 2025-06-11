@@ -219,3 +219,29 @@ padding: 2px;
     margin-bottom: 15px;
     color: #2c3e50;
 }
+.star-rating-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.star-rating {
+    direction: rtl;
+    display: inline-flex;
+    font-size: 2rem;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    color: lightgray;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-rating input[type="radio"]:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: gold;
+}
