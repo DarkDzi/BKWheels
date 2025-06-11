@@ -187,3 +187,24 @@ ul.qr-list {
 .feedback-form button:hover {
     background-color: #2ecc71;
 }
+.admin-menu {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.admin-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 250px;
+}
+
+.admin-section h3 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+}

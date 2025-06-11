@@ -3,25 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>MenuAdmin</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <h1>MENU ADMIN</h1>
-<div>
-  <div>
-    <h3>Menu QrCodes</h3>
 
-
-    <a th:href="@{/QrGenerate}">Ir Ao Menu De QrCodes</a>
-  </div>
-  <div>
-    <h3>Menu FeedBacks</h3>
-
-
-    <a th:href="@{/FeedBackView}">Ir Ao Menu De FeedBacks</a>
-  </div>
+<div class="admin-menu">
+    <div class="admin-section">
+        <h3>Menu QrCodes</h3>
+        <a th:href="@{/QrGenerate}" class="btn-primary">Ir Ao Menu De QrCodes</a>
+    </div>
+    <div class="admin-section">
+        <h3>Menu FeedBacks</h3>
+        <a th:href="@{/FeedBackView}" class="btn-primary">Ir Ao Menu De FeedBacks</a>
+    </div>
 </div>
-
-
-
 </body>
 </html>
