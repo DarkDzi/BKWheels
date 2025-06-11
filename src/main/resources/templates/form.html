@@ -6,16 +6,22 @@
 </head>
 <body>
 <h1>Enviar Feedback da Bicicleta</h1>
+
+
 <div th:if="${mensagem}">
-    <p th:text="${mensagem}"></p>
+    <p th:text="${mensagem}" style="color: green; font-weight: bold;"></p>
 </div>
 
-<form th:action="@{/form}" method="post">
+
+<form th:action="@{/form}" method="post" th:if="${mensagem == null}">
     <label for="nota">Nota (1 a 5):</label><br>
     <input type="number" id="nota" name="nota" min="1" max="5" required><br><br>
 
+    <input type="hidden" name="bikeid" th:value="${bikeid}" />
+
     <label for="comentario">Comentário:</label><br>
-    <textarea id="comentario" name="comentario" rows="4" cols="50" placeholder="Descreva sua experiência..."></textarea><br><br>
+    <textarea id="comentario" name="comentario" rows="4" cols="50"
+              placeholder="Descreva sua experiência..."></textarea><br><br>
 
     <label for="reparo">Precisa de reparo?</label>
     <input type="checkbox" id="reparo" name="reparo"><br><br>

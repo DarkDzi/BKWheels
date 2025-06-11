@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-
+    <title>Todos os Feedbacks</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<h1>Lista de Feedbacks Recebidos</h1>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>ID Bicicleta</th>
+        <th>Nota</th>
+        <th>Comentário</th>
+        <th>Reparo Necessário</th>
+        <th>Data</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="feed : ${feedsData}">
+        <td th:text="${feed.id}">1</td>
+        <td th:text="${feed.bikeid}">123</td>
+        <td th:text="${feed.nota}">5</td>
+        <td th:text="${feed.comentario}">Ótimo</td>
+        <td th:text="${feed.reparo} ? 'Sim' : 'Não'">Não</td>
+        <td th:text="${feed.data}">data</td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${#lists.isEmpty(feedsData)}">
+    <p>Nenhum feedback encontrado.</p>
+</div>
 <a th:href="@{/AdminMenu}">Voltar ao Menu Admin</a>
 </body>
 </html>

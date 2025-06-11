@@ -15,20 +15,21 @@ public class SalvarFormData {
     private String Senha = "123";
 
 
-    public void Save(int nota, String comentario, Boolean reparo) {
+    public void Save(int nota, String comentario, Boolean reparo, int bikeid) {
         CriarTabela criarTabela = new CriarTabela();
         criarTabela.criarTabelaForm();
         Date data = new Date();
         java.sql.Timestamp datasql = new java.sql.Timestamp(data.getTime());
         try(Connection conn = DriverManager.getConnection(Url, Usuario, Senha)){
-            String sql = "INSERT INTO formdata (nota, comentario, reparo, data) VALUES(?, ?, ?, ?)";
+            String sql = "INSERT INTO formdata (nota,bikeid, comentario, reparo, data) VALUES(?, ?, ?, ?, ?)";
             PreparedStatement sts = conn.prepareStatement(sql);
 
 
             sts.setInt(1, nota);
-            sts.setString(2, comentario);
-            sts.setBoolean(3, reparo);
-            sts.setTimestamp(4, datasql);
+            sts.setInt(2, bikeid);
+            sts.setString(3, comentario);
+            sts.setBoolean(4, reparo);
+            sts.setTimestamp(5, datasql);
             sts.executeUpdate();
 
             sts.close();

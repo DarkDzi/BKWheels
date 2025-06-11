@@ -21,7 +21,7 @@ public class QRgenerator {
 
     public void GenerateQR(int bikeid) {
         String caminho = "QrCode_" + bikeid + ".png";
-        String texto = "localhost:8080/form" + bikeid;
+        String texto = "localhost:8080/form?bikeid=" + bikeid;
         SalvarQr Salvar = new SalvarQr() ;
         try {
             BitMatrix matrix = new MultiFormatWriter().encode(

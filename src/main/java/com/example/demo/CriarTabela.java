@@ -45,6 +45,7 @@ public class CriarTabela {
 
            String sqltable = "CREATE TABLE formdata (" +
                    "id IDENTITY PRIMARY KEY, " +
+                   "bikeid INT NOT NULL," +
                    "nota INT NOT NULL CHECK (nota BETWEEN 1 AND 5), " +
                    "comentario VARCHAR(1000), " +
                    "data TIMESTAMP NOT NULL," +

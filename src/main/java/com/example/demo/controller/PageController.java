@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.FeedBack.SalvarFormData;
+import com.example.demo.FeedBack.UseFormData;
+import com.example.demo.Modelos.FormData;
 import com.example.demo.Modelos.QRCodeData;
 import com.example.demo.QrGeneration.ListarQr;
 import com.example.demo.QrGeneration.QRgenerator;
@@ -69,6 +71,13 @@ public class PageController {
 
     @GetMapping("/AdminMenu/FeedBackView")
     public String FeedBack(Model model){
+        UseFormData useFormData = new UseFormData();
+        List<FormData> feedsData = useFormData.GetFeedsData();
+
+        model.addAttribute("feedsData", feedsData);
+
+
+
         return"FeedBackView";
     }
 
@@ -117,18 +126,26 @@ public class PageController {
     @ResponseBody
     public ResponseEntity<ByteArrayResource> downloadQRCode(@PathVariable int id) {
         try (Connection conn = DriverManager.getConnection("jdbc:h2:file:./data", "admin", "123")) {
-            String sql = "SELECT QR FROM qrcodes WHERE id = ?";
+            String sql = "SELECT QR, nome_arquivo FROM qrcodes WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 byte[] imageBytes = rs.getBytes("QR");
+                String nomeArquivo = rs.getString("nome_arquivo");
+
+                // Garante que o nome tenha .png
+                if (!nomeArquivo.toLowerCase().endsWith(".png")) {
+                    nomeArquivo += ".png";
+                }
+
                 ByteArrayResource resource = new ByteArrayResource(imageBytes);
 
                 return ResponseEntity.ok()
                         .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"qrcode_" + id + ".png\"")
+                        .header(HttpHeaders.CONTENT_DISPOSITION,
+                                "attachment; filename=\"" + nomeArquivo + "\"")
                         .body(resource);
             }
         } catch (Exception e) {
@@ -143,8 +160,10 @@ public class PageController {
 
 
 
+
     @GetMapping("/form")
-    public String mostrarFormulario() {
+    public String mostrarFormulario(@RequestParam int bikeid, Model model) {
+        model.addAttribute("bikeid", bikeid);
         return "form";
     }
 
@@ -152,11 +171,12 @@ public class PageController {
     public String receberFeedback(@RequestParam int nota,
                                   @RequestParam String comentario,
                                   @RequestParam(required = false) boolean reparo,
+                                  @RequestParam int bikeid,
                                   Model model) {
 
         SalvarFormData SalvaForm = new SalvarFormData();
-        SalvaForm.Save(nota, comentario, reparo);
-        model.addAttribute("mensagem", "Feedback enviado com sucesso!");
+        SalvaForm.Save(nota, comentario, reparo, bikeid);
+        model.addAttribute("mensagem", "Obrigado Pelo Feedback!");
         return "form";
     }
 
