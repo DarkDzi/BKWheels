@@ -83,14 +83,17 @@ p {
 /* ---------------------------
    Estilo Lista de QRCodes
 --------------------------- */
-ul.qr-list {
+ul {
     list-style: none;
     padding: 0;
     display: flex;
     flex-direction: column;
+    width: 50%;
     gap: 20px;
     align-items: center;
     margin-top: 30px;
+    max-height: 100vh;
+    overflow-y: scroll;
 }
 
 .qr-item {
@@ -134,12 +137,16 @@ ul.qr-list {
 .btn-primary {
     background-color: #2980b9;
     color: white;
+    padding: 3px;
+    width: auto;
 }
 
 .btn-primary:hover {
     background-color: #3498db;
 }
-
+.qrform{
+padding: 2px;
+}
 /* ---------------------------
    Estilo Feedback da Bicicleta
 --------------------------- */

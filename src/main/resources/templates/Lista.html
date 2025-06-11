@@ -8,24 +8,25 @@
 <h1>QRCodes Existentes</h1>
 
 <ul>
-    <li th:each="qr : ${qrcodes}">
+    <li th:each="qr : ${qrcodes}" class="qr-item">
         <span th:text="${qr.nome_arquivo}"></span><br>
         <img th:src="@{/qr/image/{id}(id=${qr.id})}" width="150" alt="QR Code"><br>
 
 
 
 
-        <form th:action="@{/QrGenerate/delete}" method="post" style="display:inline;">
+        <form th:action="@{/QrGenerate/delete}" method="post" class="qrform">
             <input type="hidden" name="id" th:value="${qr.id}" />
             <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
             <a th:href="@{/download/qr/image/{id}(id=${qr.id})}" class="btn btn-primary" download>
                 Baixar
             </a>
+        </form>
+
     </li>
 
 </ul>
 
-<a href="/QrGenerate">Voltar ao menu</a>
+<a href="/AdminMenu/QrGenerate">Voltar ao menu</a>
 </body>
 </html>

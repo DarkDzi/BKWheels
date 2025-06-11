@@ -61,17 +61,22 @@ public class PageController {
     }
 
 
-    @GetMapping("/QrGenerate")
+    @GetMapping("/AdminMenu/QrGenerate")
     public String Admin(Model model) {
         model.addAttribute("mensagem", "Admin");
     return"QrGenerate";
         }
 
+    @GetMapping("/AdminMenu/FeedBackView")
+    public String FeedBack(Model model){
+        return"FeedBackView";
+    }
 
 
 
 
-    @GetMapping("/QrGenerate/List")
+
+    @GetMapping("/AdminMenu/QrGenerate/List")
     public String list(Model model) {
         ListarQr listarQr = new ListarQr();
         List<QRCodeData> listaQRCodes = listarQr.Listar();
@@ -82,7 +87,7 @@ public class PageController {
     public String deleteQRCode(@RequestParam("id") int id) {
         com.example.demo.QrGeneration.DeletarQr deletarQr = new com.example.demo.QrGeneration.DeletarQr();
         deletarQr.Delete(id);
-        return "redirect:/QrGenerate/List";
+        return "redirect:/AdminMenu/QrGenerate/List";
     }
 
 

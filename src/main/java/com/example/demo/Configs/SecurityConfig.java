@@ -18,7 +18,7 @@ public class SecurityConfig {
 
          http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/QrGenerate/**").hasRole("ADMIN")
+                        .requestMatchers("/AdminMenu/**").hasRole("ADMIN")
                         .requestMatchers("/h2/**").permitAll()
                         .anyRequest().permitAll()
                 )

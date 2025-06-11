@@ -20,7 +20,7 @@ public class QRgenerator {
 
 
     public void GenerateQR(int bikeid) {
-        String caminho = "CodeImages/QrCode_" + bikeid + ".png";
+        String caminho = "QrCode_" + bikeid + ".png";
         String texto = "localhost:8080/form" + bikeid;
         SalvarQr Salvar = new SalvarQr() ;
         try {
