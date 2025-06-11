@@ -39,38 +39,38 @@ public class PageController {
     @Autowired
     private QRgenerator qrGenerator;
 
-    @PostMapping("/Admin/generate-multiple")
+    @PostMapping("/QrGenerate/generate-multiple")
     public String generateMultipleQRCodes(@RequestParam("ids") String ids, Model model) {
         qrGenerator.generateMultiple(ids);
         model.addAttribute("mensagem", "QRCodes gerados com sucesso!");
-        return "Admin";
+        return "QrGenerate";
     }
 
-    @PostMapping("/Admin/generate-single")
+    @PostMapping("/QrGenerate/generate-single")
     public String generateSingle(@RequestParam("bikeId") int bikeId, Model model) {
         qrGenerator.GenerateQR(bikeId);
         model.addAttribute("mensagem", "QR Code gerado para ID: " + bikeId);
-        return "Admin";
+        return "QrGenerate";
     }
 
 
-    @GetMapping("/Admin")
+    @GetMapping("/QrGenerate")
     public String Admin(Model model) {
         model.addAttribute("mensagem", "Admin");
-    return"Admin";
+    return"QrGenerate";
         }
-    @GetMapping("/Admin/List")
+    @GetMapping("/QrGenerate/List")
     public String list(Model model) {
         ListarQr listarQr = new ListarQr();
         List<QRCodeData> listaQRCodes = listarQr.Listar();
         model.addAttribute("qrcodes", listaQRCodes);
         return "Lista";
     }
-    @PostMapping("/Admin/delete")
+    @PostMapping("/QrGenerate/delete")
     public String deleteQRCode(@RequestParam("id") int id) {
         com.example.demo.QrGeneration.DeletarQr deletarQr = new com.example.demo.QrGeneration.DeletarQr();
         deletarQr.Delete(id);
-        return "redirect:/Admin/List";
+        return "redirect:/QrGenerate/List";
     }
 
 
@@ -140,7 +140,7 @@ public class PageController {
         SalvarFormData SalvaForm = new SalvarFormData();
         SalvaForm.Save(nota, comentario, reparo);
         model.addAttribute("mensagem", "Feedback enviado com sucesso!");
-        return "redirect:/Admin";
+        return "form";
     }
 
 }

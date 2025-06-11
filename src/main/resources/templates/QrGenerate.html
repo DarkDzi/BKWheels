@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Menu de QRCode</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <h1>Menu de QRCode</h1>
@@ -9,20 +10,21 @@
 <p th:text="${mensagem}" style="color:green;"> Você está como:</p>
 
 <h2>Gerar um único QRCode</h2>
-<form action="/Admin/generate-single" method="post">
+<form action="/QrGenerate/generate-single" method="post">
     <label>ID da bicicleta:</label>
     <input type="number" name="bikeId" required>
     <button type="submit">Gerar</button>
 </form>
 
 <h2>Gerar múltiplos QRCodes</h2>
-<form action="/Admin/generate-multiple" method="post">
+<form action="/QrGenerate/generate-multiple" method="post">
     <label>IDs (formato: 1,2,3):</label>
     <input type="text" name="ids" required>
     <button type="submit">Gerar</button>
 </form>
 
 <h2>Outras opções</h2>
-<a th:href="@{/Admin/List}">Listar QRCodes</a>
+<a th:href="@{/QrGenerate/List}">Listar QRCodes</a>
+<a href="/AdminMenu">Voltar ao Menu Admin</a>
 </body>
 </html>

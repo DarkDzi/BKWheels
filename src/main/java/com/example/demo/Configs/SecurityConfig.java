@@ -16,14 +16,14 @@ public class SecurityConfig {
 
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/Admin/**").hasRole("ADMIN")
+                        .requestMatchers("/QrGenerate/**").hasRole("ADMIN")
                         .requestMatchers("/h2/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/h2/**")
-                        .ignoringRequestMatchers("/Admin/generate-single/**")
-                        .ignoringRequestMatchers("/Admin/generate-multiple/**")
+                        .ignoringRequestMatchers("/QrGenerate/generate-single/**")
+                        .ignoringRequestMatchers("/QrGenerate/generate-multiple/**")
                         .ignoringRequestMatchers("/Admin/List/**")
                 )
                 .headers(headers -> headers

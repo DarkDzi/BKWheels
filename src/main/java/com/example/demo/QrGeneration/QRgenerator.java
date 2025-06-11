@@ -59,6 +59,7 @@ public class QRgenerator {
 
        // return ;
     //}
+    //Inutilizado Devido a atualização para tudo ir para o banco de dados
 
     public void DeletarQrCodePorId(int id) {
         //Path path = Paths.get("CodeImages/QrCode_" + id + ".png");

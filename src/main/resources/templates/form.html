@@ -2,12 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Feedback da Bicicleta</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <h1>Enviar Feedback da Bicicleta</h1>
+<div th:if="${mensagem}">
+    <p th:text="${mensagem}"></p>
+</div>
 
-<form th:action="@{/bike/feedback}" method="post">
-
+<form th:action="@{/form}" method="post">
     <label for="nota">Nota (1 a 5):</label><br>
     <input type="number" id="nota" name="nota" min="1" max="5" required><br><br>
 
@@ -19,7 +22,5 @@
 
     <button type="submit">Enviar Feedback</button>
 </form>
-
-<a href="/Admin">Voltar</a>
 </body>
 </html>
