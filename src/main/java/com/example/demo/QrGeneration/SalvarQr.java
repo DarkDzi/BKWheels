@@ -1,5 +1,6 @@
 package com.example.demo.QrGeneration;
 
+import com.example.demo.CriarTabela;
 import com.example.demo.Modelos.QRCodeData;
 
 import javax.imageio.ImageIO;
@@ -13,40 +14,17 @@ public class SalvarQr {
     private String Usuario = "admin";
     private String Senha = "123";
 
-    public boolean tabelaExiste(String nomeTabela) {
-        try (Connection conn = DriverManager.getConnection(Url, Usuario, Senha)) {
-            DatabaseMetaData meta = conn.getMetaData();
 
-            try (ResultSet rs = meta.getTables(null, null, nomeTabela.toUpperCase(), null)) {
-                return rs.next();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     public void Save(QRCodeData QR) {
-
+        CriarTabela criarTabela = new CriarTabela();
+        criarTabela.criarTabelaQR();
         try(Connection conn = DriverManager.getConnection(Url, Usuario, Senha)){
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(QR.getQRImage(), "png", baos);
             byte[] QrBytes = baos.toByteArray();
 
-
-            String sqltable = "CREATE TABLE IF NOT EXISTS qrcodes (" +
-                    "id INT AUTO_INCREMENT PRIMARY KEY, " +
-                    "nome_arquivo VARCHAR(255) NOT NULL, " +
-                    "QR BLOB NOT NULL, " +
-                    "QRUrl VARCHAR(255))";
-
-            Statement ststable = conn.createStatement();
-             boolean existe = tabelaExiste("qrcodes");
-            if(!existe) {
-                ststable.execute(sqltable);
-            }
             String sql = "INSERT INTO qrcodes (nome_arquivo, Qr, QRUrl) VALUES(?, ?, ?)";
             PreparedStatement sts = conn.prepareStatement(sql);
 
