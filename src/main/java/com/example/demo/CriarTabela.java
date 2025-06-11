@@ -47,6 +47,7 @@ public class CriarTabela {
                    "id IDENTITY PRIMARY KEY, " +
                    "nota INT NOT NULL CHECK (nota BETWEEN 1 AND 5), " +
                    "comentario VARCHAR(1000), " +
+                   "data TIMESTAMP NOT NULL," +
                    "reparo BOOLEAN)";
 
 
