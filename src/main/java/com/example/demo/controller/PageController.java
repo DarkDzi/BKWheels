@@ -39,6 +39,8 @@ public class PageController {
     @Autowired
     private QRgenerator qrGenerator;
 
+
+
     @PostMapping("/QrGenerate/generate-multiple")
     public String generateMultipleQRCodes(@RequestParam("ids") String ids, Model model) {
         qrGenerator.generateMultiple(ids);
@@ -53,12 +55,22 @@ public class PageController {
         return "QrGenerate";
     }
 
+    @GetMapping("/AdminMenu")
+    public String Menu(Model mode){
+        return"AdminMenu";
+    }
+
 
     @GetMapping("/QrGenerate")
     public String Admin(Model model) {
         model.addAttribute("mensagem", "Admin");
     return"QrGenerate";
         }
+
+
+
+
+
     @GetMapping("/QrGenerate/List")
     public String list(Model model) {
         ListarQr listarQr = new ListarQr();

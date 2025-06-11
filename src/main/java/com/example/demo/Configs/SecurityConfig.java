@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 @Configuration
 public class SecurityConfig {
@@ -14,7 +16,7 @@ public class SecurityConfig {
 
 
 
-        return http
+         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/QrGenerate/**").hasRole("ADMIN")
                         .requestMatchers("/h2/**").permitAll()
@@ -24,14 +26,21 @@ public class SecurityConfig {
                         .ignoringRequestMatchers("/h2/**")
                         .ignoringRequestMatchers("/QrGenerate/generate-single/**")
                         .ignoringRequestMatchers("/QrGenerate/generate-multiple/**")
-                        .ignoringRequestMatchers("/Admin/List/**")
+                        .ignoringRequestMatchers("/QrGenerate/List/**")
                 )
                 .headers(headers -> headers
                         .frameOptions().sameOrigin()
                 )
 
-                .formLogin(Customizer.withDefaults())
-                .build();
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/AdminMenu", true)
+                        .permitAll()
+                )
+
+                .logout(Customizer.withDefaults());
+
+        return http.build();
 
     }
+
 }

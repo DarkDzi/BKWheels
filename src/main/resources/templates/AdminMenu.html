@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>MenuAdmin</title>
@@ -11,13 +11,13 @@
     <h3>Menu QrCodes</h3>
 
 
-    <a href="/QrGenerate">Ir Ao Menu De QrCodes</a>
+    <a th:href="@{/QrGenerate}">Ir Ao Menu De QrCodes</a>
   </div>
   <div>
     <h3>Menu FeedBacks</h3>
 
 
-    <a href="/FeedBackView">Ir Ao Menu De FeedBacks</a>
+    <a th:href="@{/FeedBackView}">Ir Ao Menu De FeedBacks</a>
   </div>
 </div>
 
