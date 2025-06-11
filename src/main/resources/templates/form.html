@@ -13,7 +13,7 @@
 </div>
 
 
-<form th:action="@{/form}" method="post" th:if="${mensagem == null}">
+<form th:action="@{/form}" method="post" th:if="${mensagem == null}" class="feedback-form">
     <label for="nota">Nota (1 a 5):</label><br>
     <input type="number" id="nota" name="nota" min="1" max="5" required><br><br>
 
