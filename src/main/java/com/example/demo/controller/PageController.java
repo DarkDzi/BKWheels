@@ -8,6 +8,11 @@ import com.example.demo.QrGeneration.ListarQr;
 import com.example.demo.QrGeneration.QRgenerator;
 import jakarta.annotation.Resource;
 import jakarta.annotation.Resources;
+import jakarta.servlet.http.HttpServletResponse;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtils;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.core.io.ByteArrayResource;
@@ -22,16 +27,13 @@ import org.springframework.ui.Model;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.text.Normalizer;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -180,6 +182,41 @@ public class PageController {
         model.addAttribute("mensagem", "Obrigado Pelo Feedback!");
         return "form";
     }
+    @GetMapping(value = "/feedgrafico", produces = MediaType.IMAGE_PNG_VALUE)
+        public void gerarGrafico(HttpServletResponse response) throws IOException {
+           UseFormData graficoData = new UseFormData();
 
-}
+        List<FormData> top3 = graficoData.GetFeedsData().stream()
+                .sorted(Comparator.comparingInt(FormData::getNota).reversed())
+                .limit(3)
+                .collect(Collectors.toList());
+
+
+
+
+
+
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            for(FormData f : top3) {
+                String idnota = "bikedid" + f.getBikeid();
+                dataset.addValue(f.getNota(), "Nota", idnota);
+            }
+            JFreeChart chart = ChartFactory.createBarChart(
+                    "Gráfico de Vendas",
+                    "Mês",
+                    "Valor",
+                    dataset
+            );
+
+            response.setContentType("image/png");
+            OutputStream out = response.getOutputStream();
+            ChartUtils.writeChartAsPNG(out, chart, 600, 400);
+            out.close();
+        }
+    }
+
+
+
+
+
 
