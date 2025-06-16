@@ -245,3 +245,27 @@ padding: 2px;
 .star-rating label:hover ~ label {
     color: gold;
 }
+/* ---------------------------
+   Estilo FeedbackView da Bicicleta
+--------------------------- */
+.maincontainer {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+width: 100%;
+}
+.feedgraphics{
+width: 50%;
+}
+.feedlist{
+width: 50%;
+max-height: 100%;
+overflow-y:auto;
+align-items: center;
+justify-content: center;
+}
+.feedtitle{
+text-align: center;
+
+}
