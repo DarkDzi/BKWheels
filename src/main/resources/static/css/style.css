@@ -221,7 +221,6 @@ padding: 2px;
 }
 .star-rating-container {
     text-align: center;
-    margin: 20px 0;
 }
 
 .star-rating {
@@ -286,7 +285,17 @@ padding: 5px;
 text-align: center;
 
 }
-.maincontainer form {
+
+.filtrofeed{
+display: flex;
+flex-direction: row;
+width: 100%;
+margin: 0;
+padding: 0;
+max-width: fit-content;
+
+}
+.feedelet{
 margin: 0;
 padding: 0;
 height: 100%;

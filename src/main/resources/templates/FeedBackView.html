@@ -17,6 +17,30 @@
 
 <div class="feedlist">
     <h3 class="feedtitle">Lista de Feedbacks Recebidos</h3>
+    <form th:action="@{/FeedBackView}" method="post" th:if="${mensagem == null}" class="filtrofeed">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome" required><br><br>
+        <div class="star-rating-container">
+            <label>Nota:</label><br>
+            <div class="star-rating">
+                <input type="radio" id="star5" name="nota" value="5" required><label for="star5">★</label>
+                <input type="radio" id="star4" name="nota" value="4"><label for="star4">★</label>
+                <input type="radio" id="star3" name="nota" value="3"><label for="star3">★</label>
+                <input type="radio" id="star2" name="nota" value="2"><label for="star2">★</label>
+                <input type="radio" id="star1" name="nota" value="1"><label for="star1">★</label>
+            </div>
+        </div>
+
+        <input type="hidden" name="bikeid" th:value="${bikeid}" />
+        <label for="reparo">Precisa de reparo?</label>
+        <input type="checkbox" id="reparo" name="reparo"><br><br>
+
+        <button type="submit">Filtrar</button>
+    </form>
+
+
+
+
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>
@@ -44,7 +68,7 @@
         <td th:text="${feed.data}">data</td>
         <td th:text="${feed.nome}">nome</td>
         <td>
-            <form th:action="@{/FeedBackView/delete}" method="post">
+            <form th:action="@{/FeedBackView/delete}" method="post" class="feedelet">
             <input type="hidden" name="id" th:value="${feed.id}" />
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>

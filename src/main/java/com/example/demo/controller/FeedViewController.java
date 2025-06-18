@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.FeedBack.DeletarFeed;
+import com.example.demo.FeedBack.SalvarFormData;
 import com.example.demo.FeedBack.UseFormData;
 import com.example.demo.Modelos.FormData;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,12 +33,33 @@ public class FeedViewController {
         UseFormData useFormData = new UseFormData();
         List<FormData> feedsData = useFormData.GetFeedsData();
 
+        List<FormData> FiltroNota = useFormData.GetFeedsData();
+
+
+
+
+
         model.addAttribute("feedsData", feedsData);
 
 
 
         return"FeedBackView";
     }
+    @PostMapping("/FeedBackView")
+    public String Filtrar(@RequestParam int nota,
+                                  @RequestParam(required = false) boolean reparo,
+                                  @RequestParam int bikeid,
+                                  @RequestParam String nome,
+                                  Model model) {
+
+        model.addAttribute("mensagem", "Obrigado Pelo Feedback!");
+        return "form";
+    }
+
+
+
+
+
     @PostMapping("/FeedBackView/delete")
     public String deleteFeedBack(@RequestParam("id") int id) {
         DeletarFeed deletarFeedBack = new DeletarFeed();
