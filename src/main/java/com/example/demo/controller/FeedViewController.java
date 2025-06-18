@@ -42,7 +42,7 @@ public class FeedViewController {
     public String deleteFeedBack(@RequestParam("id") int id) {
         DeletarFeed deletarFeedBack = new DeletarFeed();
         deletarFeedBack.Delete(id);
-        return "redirect:/AdminMenu/FeedBackView/List";
+        return "redirect:/AdminMenu/FeedBackView";
     }
 
 

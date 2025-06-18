@@ -273,7 +273,15 @@ max-height: 80vh;
 overflow-y:auto;
 align-items: center;
 justify-content: center;
+border: #2980b9 3px solid;
+border-radius: 12px;
+padding: 5px;
 }
+.feedlist table{
+padding: 5px;
+}
+
+
 .feedtitle{
 text-align: center;
 
@@ -282,11 +290,4 @@ text-align: center;
 margin: 0;
 padding: 0;
 height: 100%;
-}
-.maincontainer table {
-padding: 5px;
-border: #2980b9 3px solid;
-border-radius: 12px;
-
-
 }
