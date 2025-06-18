@@ -278,3 +278,15 @@ justify-content: center;
 text-align: center;
 
 }
+.maincontainer form {
+margin: 0;
+padding: 0;
+height: 100%;
+}
+.maincontainer table {
+padding: 5px;
+border: #2980b9 3px solid;
+border-radius: 12px;
+
+
+}

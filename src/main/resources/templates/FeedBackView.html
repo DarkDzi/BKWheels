@@ -27,6 +27,7 @@
         <th>Reparo Necessário</th>
         <th>Data</th>
         <th>Nome</th>
+        <th>Deletar</th>
     </tr>
     </thead>
     <tbody>
@@ -42,6 +43,13 @@
         <td th:text="${feed.reparo} ? 'Sim' : 'Não'">Não</td>
         <td th:text="${feed.data}">data</td>
         <td th:text="${feed.nome}">nome</td>
+        <td>
+            <form th:action="@{/FeedBackView/delete}" method="post">
+            <input type="hidden" name="id" th:value="${feed.id}" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        </td>
+
     </tr>
     </tbody>
 </table>

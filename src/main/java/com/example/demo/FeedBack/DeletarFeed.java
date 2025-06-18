@@ -1,0 +1,32 @@
+package com.example.demo.FeedBack;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class DeletarFeed {
+    private String Url = "jdbc:h2:file:./data";
+    private String Usuario = "admin";
+    private String Senha = "123";
+
+    public void Delete(Integer DeletID) {
+
+
+
+        try (
+                Connection conn = DriverManager.getConnection(Url, Usuario, Senha)) {
+            String sql = "DELETE FROM formdata WHERE id =" + DeletID;
+            PreparedStatement sts = conn.prepareStatement(sql);
+
+            sts.executeUpdate();
+            sts.close();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+

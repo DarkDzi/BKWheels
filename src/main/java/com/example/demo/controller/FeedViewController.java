@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.FeedBack.DeletarFeed;
 import com.example.demo.FeedBack.UseFormData;
 import com.example.demo.Modelos.FormData;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -36,6 +38,15 @@ public class FeedViewController {
 
         return"FeedBackView";
     }
+    @PostMapping("/FeedBackView/delete")
+    public String deleteFeedBack(@RequestParam("id") int id) {
+        DeletarFeed deletarFeedBack = new DeletarFeed();
+        deletarFeedBack.Delete(id);
+        return "redirect:/AdminMenu/FeedBackView/List";
+    }
+
+
+
 
     @GetMapping(value = "/feedgraficobar", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
