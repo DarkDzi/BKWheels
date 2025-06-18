@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.FeedBack.DeletarFeed;
+import com.example.demo.FeedBack.FiltrosFeed;
 import com.example.demo.FeedBack.SalvarFormData;
 import com.example.demo.FeedBack.UseFormData;
 import com.example.demo.Modelos.FormData;
@@ -11,6 +12,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.ui.RectangleInsets;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,12 +30,12 @@ import java.util.stream.Collectors;
 
 @Controller
 public class FeedViewController {
+    UseFormData useFormData = new UseFormData();
+    List<FormData> feedsData = useFormData.GetFeedsData();
     @GetMapping("/AdminMenu/FeedBackView")
     public String FeedBack(Model model){
-        UseFormData useFormData = new UseFormData();
-        List<FormData> feedsData = useFormData.GetFeedsData();
 
-        List<FormData> FiltroNota = useFormData.GetFeedsData();
+
 
 
 
@@ -45,15 +47,31 @@ public class FeedViewController {
 
         return"FeedBackView";
     }
-    @PostMapping("/FeedBackView")
-    public String Filtrar(@RequestParam int nota,
-                                  @RequestParam(required = false) boolean reparo,
-                                  @RequestParam int bikeid,
-                                  @RequestParam String nome,
+    @PostMapping("/AdminMenu/FeedBackView")
+    public String Filtrar(@RequestParam(required = false) Integer nota,
+                                  @RequestParam(required = false) Boolean reparo,
+                                  @RequestParam(required = false) String nome,
+                                  @RequestParam(required = false) String limpar,
                                   Model model) {
+        List<FormData> resultado = feedsData;
 
-        model.addAttribute("mensagem", "Obrigado Pelo Feedback!");
-        return "form";
+        if (limpar != null) {
+            model.addAttribute("feedsData", feedsData);
+            return "FeedBackView";
+        }
+
+        if (nota != null) {
+            resultado = resultado.stream().filter(f -> f.getNota() == nota).toList();
+        }
+        if (nome != null && !nome.isEmpty()) {
+            resultado = resultado.stream().filter(f -> f.getNome().equalsIgnoreCase(nome)).toList();
+        }
+        if (reparo != null && reparo) {
+            resultado = resultado.stream().filter(FormData::isReparo).toList();
+        }
+
+        model.addAttribute("feedsData", resultado);
+        return "FeedBackView";
     }
 
 

@@ -27,6 +27,7 @@ public class SecurityConfig {
                         .ignoringRequestMatchers("/QrGenerate/generate-single/**")
                         .ignoringRequestMatchers("/QrGenerate/generate-multiple/**")
                         .ignoringRequestMatchers("/QrGenerate/List/**")
+                        .ignoringRequestMatchers("/AdminMenu/FeedBackView")
                 )
                 .headers(headers -> headers
                         .frameOptions().sameOrigin()

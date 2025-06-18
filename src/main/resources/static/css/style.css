@@ -23,19 +23,6 @@ h2 {
     color: #34495e;
 }
 
-form, a {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    margin-top: 10px;
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
 label {
     font-weight: bold;
 }
@@ -286,17 +273,40 @@ text-align: center;
 
 }
 
-.filtrofeed{
-display: flex;
-flex-direction: row;
-width: 100%;
-margin: 0;
-padding: 0;
-max-width: fit-content;
 
-}
 .feedelet{
 margin: 0;
 padding: 0;
 height: 100%;
+}
+.filtrofeed {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.filtroform {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filtroform label {
+    margin-bottom: 5px;
+}
+
+.filtroform input,
+.filtroform button {
+    margin-bottom: 10px;
+}
+
+.filtroform .star-rating {
+    justify-content: center;
 }
