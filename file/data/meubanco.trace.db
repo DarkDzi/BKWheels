@@ -1,3 +1,0 @@
-2025-06-09 12:24:34.865961-03:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "QRCODES" not found (this database is empty); SQL statement:
-INSERT INTO qrcodes (nome_arquivo, QR, QRUrl) VALUES(?, ?, ?) [42104-232]

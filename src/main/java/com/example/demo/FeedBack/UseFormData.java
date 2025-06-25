@@ -21,7 +21,7 @@ public class UseFormData {
         List<FormData> feedsData = new ArrayList<FormData>();
         try (
                 Connection conn = DriverManager.getConnection(Url, Usuario, Senha)) {
-            String sql = "SELECt * FROM formdata";
+            String sql = "SELECT * FROM formdata";
             Statement stamt = conn.createStatement();
             ResultSet rs = stamt.executeQuery(sql);
 
